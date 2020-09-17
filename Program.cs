@@ -69,7 +69,7 @@ namespace Inlamningsuppgift2
             }
 
             }
-            
+            Console.WriteLine("test commit2");
 
             Console.Read();
         }
