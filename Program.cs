@@ -1,78 +1,109 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections;
+using System.Data;
+using System.Text.RegularExpressions;
 
-namespace Inlamningsuppgift2
+namespace ConsoleApp1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            bool answer = false;
-            bool backTop = true;
-            while (backTop)
-            { 
-            
-
-            Console.WriteLine(System.DateTime.Now);
-            Console.WriteLine("Välkommen till Gustav's miniräknare");
-
-            Console.WriteLine("enter a number");
-            int a = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("enter an operator");
-            string opt = Console.ReadLine();
-            Console.WriteLine("enter another number");
-            int b = Convert.ToInt32(Console.ReadLine());
+            Regex rx = new Regex("[0-9*/+-]+");
+            bool loop = true;
+            ArrayList arrlist = new ArrayList();
+            string var;
 
 
-
-            int result = 0;
-
-            if (opt == "+")
+            while (loop)
             {
-                result = a + b;
-                Console.WriteLine("Answer is : " + result);
-                answer = true;
 
-            }
-            else if (opt == "-")
-            {
-                result = a - b;
-                Console.WriteLine("Answer is : " + result);
-                answer = true;
-            }
-            else if (opt == "*")
-            {
-                result = a * b;
-                Console.WriteLine("Answer is : " + result);
-                answer = true;
-            }
-            else if (opt == "/")
-            {
-                result = a / b;
-                Console.WriteLine("Answer is : " + result);
-                answer = true;
+                Console.WriteLine("enter a number or operator");
+                var = Console.ReadLine();
 
-            }
+                if (rx.IsMatch(var))
 
-            if (answer == true)
-            {
-                Console.WriteLine("Do you want to restart your calculation? yes/no");
-                string restart = Console.ReadLine();
-
-                if (restart == "yes")
                 {
-                        backTop = true;
+                    arrlist.Add(var);
+
+                }
+                else if (var.Equals("="))
+                {
+                    loop = false;
+                }
+                else
+                {
+                    Console.WriteLine("invalid number or operator");
+
+                }
+
+            }
+            int i = 0;
+            try
+            {
+
+
+
+
+                while (i < arrlist.Count)
+                {
+
+                    if (arrlist[i].Equals("*"))
+                    {
+                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) * Convert.ToDouble(arrlist[i + 1]));
+                        arrlist.RemoveAt(i);
+                        arrlist.RemoveAt(i);
+                        i = 0;
+                    }
+                    else if (arrlist.Equals("/"))
+                    {
+                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) / Convert.ToDouble(arrlist[i + 1]));
+                        arrlist.RemoveAt(i);
+                        arrlist.RemoveAt(i);
+                        i = 0;
+
+                    }
+
+
+
+                    i++;
+                }
+                i = 0;
+                while (i < arrlist.Count)
+
+                {
+                    if (arrlist.Equals("+"))
+                    {
+                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) + Convert.ToDouble(arrlist[i + 1]));
+                        arrlist.RemoveAt(i);
+                        arrlist.RemoveAt(i);
+                        i = 0;
+
+                    }
+                    else if (arrlist.Equals("-"))
+                    {
+                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) - Convert.ToDouble(arrlist[i + 1]));
+                        arrlist.RemoveAt(i);
+                        arrlist.RemoveAt(i);
+                        i = 0;
+
+                    }
+
+                    i++;
                 }
 
 
-            }
+
+                Console.WriteLine(arrlist[0]);
 
             }
-            Console.WriteLine("test commit2");
+            catch (Exception e)
+            {
+                Console.WriteLine(DateTime.Now);
+                Console.WriteLine("This is the error");
+                Console.WriteLine(e.StackTrace);
 
-            Console.Read();
+            }
         }
-        
     }
 }
