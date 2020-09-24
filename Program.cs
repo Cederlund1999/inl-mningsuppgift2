@@ -13,35 +13,36 @@ namespace ConsoleApp1
             bool loop = true;
             ArrayList arrlist = new ArrayList();
             string var;
+           
 
 
-            while (loop)
-            {
-
-                Console.WriteLine("enter a number or operator");
-                var = Console.ReadLine();
-
-                if (rx.IsMatch(var))
-
+                while (loop)
                 {
-                    arrlist.Add(var);
+
+                    Console.WriteLine("enter a number or operator");
+                    var = Console.ReadLine();
+
+                    if (rx.IsMatch(var))
+
+                    {
+                        arrlist.Add(var);
+
+                    }
+                    else if (var.Equals("="))
+                    {
+                        loop = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("invalid number or operator");
+
+                    }
 
                 }
-                else if (var.Equals("="))
+                
+                try
                 {
-                    loop = false;
-                }
-                else
-                {
-                    Console.WriteLine("invalid number or operator");
-
-                }
-
-            }
-            int i = 0;
-            try
-            {
-
+                int i = 0;
 
 
 
@@ -55,55 +56,64 @@ namespace ConsoleApp1
                         arrlist.RemoveAt(i);
                         i = 0;
                     }
-                    else if (arrlist.Equals("/"))
-                    {
-                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) / Convert.ToDouble(arrlist[i + 1]));
-                        arrlist.RemoveAt(i);
-                        arrlist.RemoveAt(i);
-                        i = 0;
+                    else if (arrlist[i].Equals("/"))
+                        {
+                            arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) / Convert.ToDouble(arrlist[i + 1]));
+                            arrlist.RemoveAt(i);
+                            arrlist.RemoveAt(i);
+                            i = 0;
+                        
+                        
+                        }
+                    
 
+
+                        i++;
                     }
-
-
-
-                    i++;
-                }
-                i = 0;
+                    i = 0;
                 while (i < arrlist.Count)
 
                 {
-                    if (arrlist.Equals("+"))
-                    {
-                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) + Convert.ToDouble(arrlist[i + 1]));
-                        arrlist.RemoveAt(i);
-                        arrlist.RemoveAt(i);
-                        i = 0;
+                    if (arrlist[i].Equals("+"))
+                        {
+                            arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) + Convert.ToDouble(arrlist[i + 1]));
+                            arrlist.RemoveAt(i);
+                            arrlist.RemoveAt(i);
+                            i = 0;
 
+                        }
+                        else if (arrlist[i].Equals("-"))
+                        {
+                            arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) - Convert.ToDouble(arrlist[i + 1]));
+                            arrlist.RemoveAt(i);
+                            arrlist.RemoveAt(i);
+                            i = 0;
+
+                        }
+
+                        i++;
                     }
-                    else if (arrlist.Equals("-"))
-                    {
-                        arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) - Convert.ToDouble(arrlist[i + 1]));
-                        arrlist.RemoveAt(i);
-                        arrlist.RemoveAt(i);
-                        i = 0;
 
-                    }
 
-                    i++;
+
+                    Console.WriteLine(arrlist[0]);
+                
+
+            }
+                catch (Exception e)
+                {
+                    Console.WriteLine(DateTime.Now);
+                    Console.WriteLine("This is the error");
+                    Console.WriteLine(e.StackTrace);
+
                 }
+                
+            
 
 
-
-                Console.WriteLine(arrlist[0]);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(DateTime.Now);
-                Console.WriteLine("This is the error");
-                Console.WriteLine(e.StackTrace);
-
-            }
         }
-    }
+            
+            
+        }
+    
 }
