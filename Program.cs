@@ -13,7 +13,7 @@ namespace ConsoleApp1
             bool loop = true;
             ArrayList arrlist = new ArrayList();
             string var;
-           bool backTop = true;
+            bool backTop = true;
             string restart = "";
             while (backTop)
             { 
@@ -33,7 +33,7 @@ namespace ConsoleApp1
                     else if (var.Equals("="))
                     {
                         loop = false;
-                        
+                        Console.Beep();
                         
 
                     }
@@ -63,7 +63,9 @@ namespace ConsoleApp1
                             i = 0;
                             
                         }
+
                         else if (arrlist[i].Equals("/"))
+                        
                         {
                             arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) / Convert.ToDouble(arrlist[i + 1]));
                             arrlist.RemoveAt(i);
@@ -107,12 +109,13 @@ namespace ConsoleApp1
 
                     Console.WriteLine(arrlist[0]);
                     
-                    Console.WriteLine("do you like to restart calculation? yes/no?");
+                    Console.WriteLine("do you want to restart the calculator? yes/no?");
                     restart = Console.ReadLine();
                     if (restart == "yes")
                     {
                         arrlist.Clear();
                         loop = true;
+                        Console.Clear();
                         
                     }
                     else
@@ -140,6 +143,20 @@ namespace ConsoleApp1
         }
 
 
+        //RAPPORT
+        /*
+    Ett av problemen jag har stött på när jag har kodat min miniräknare var med uträkningen. Uträkningen gjordes bara med den första operatorn jag hade satt in i min första if sats.
+    Jag testade att byta operator i första if satsen och då var det den nya operatorn som fungerade. 
+    Jag märkte på så sätt att det måste vara något fel med koden i de andra if satserna.
+    Jag började med att jämföra kodraderna steg för steg men hittade fortfarande inte vad skillnaden kunde vara.
+    Jag testade sedan att skriva en Console.Writeline inuti alla if satser och kunde så sätt se vilka if satser den gick in i och inte.
+    Då fick jag resultatet att det var bara den första if satsen som fungerade.
+    Efter mycket om och men så hittade jag felet.
+    Det var så enkelt att jag hade missat att ange positionen i arraylisten i if satsen. jag hade skrivit " if (arrlist.Equals("/")) " istället för " (arrlist[i].Equals("/")) ".
+    På så sätt kunde koden inte hitta i listan och jämföra om "i" t.ex var equals to "/" och kom inte in i if satsen.
+    Detta var ett av alla problem jag har stött på under uppgiften. 
+
+        */
     }
 
-    }
+}
