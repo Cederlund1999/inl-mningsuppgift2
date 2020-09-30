@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
+using System.Drawing;
+using System.Net.Mime;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace ConsoleApp1
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -15,12 +18,41 @@ namespace ConsoleApp1
             string var;
             bool backTop = true;
             string restart = "";
-            while (backTop)
-            { 
+            Console.WriteLine(DateTime.Now + "\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            
+            Console.WriteLine("Välkommen till Gustavs miniräknare!\n");
 
+            Console.WriteLine("Instruktioner : \n");
+            Console.WriteLine("För att starta minräknaren så börjar du med att skriva \"ja\" ");
+            Console.WriteLine("och sedan trycker du på Enter. Då startar miniräknaren och du kan börja räkna. \n");
+            Console.WriteLine("För att räkna anger du ett tal per rad och sedan en operator på nästkommande rad.");
+            Console.WriteLine("Du kan använda så många tal och operatorer du önskar.");
+            Console.WriteLine("För att sedan får ett svar och räkna ut ditt tal, skriver du helt enkelt \"=\" på en egen rad och trycker enter.\n");
+
+            Console.WriteLine("Vill du starta miniräknaren? ja/nej");
+            string start = Console.ReadLine();
+            if (start == "ja") 
+            {
+                loop = true; ;
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Tack ändå");
+                backTop = false;
+            }
+            while (backTop)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(DateTime.Now+"\n");
+                Console.WriteLine("Välkommen till Gustavs miniräknare!\n");
+                
+
+                Console.ResetColor();
                 while (loop)
                 {
-
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("enter a number or operator // type = to get the answer");
                     var = Console.ReadLine();
 
@@ -34,7 +66,7 @@ namespace ConsoleApp1
                     {
                         loop = false;
                         Console.Beep();
-                        
+
 
                     }
                     else
@@ -61,21 +93,18 @@ namespace ConsoleApp1
                             arrlist.RemoveAt(i);
                             arrlist.RemoveAt(i);
                             i = 0;
-                            
+
                         }
 
                         else if (arrlist[i].Equals("/"))
-                        
+
                         {
                             arrlist[i - 1] = Convert.ToString(Convert.ToDouble(arrlist[i - 1]) / Convert.ToDouble(arrlist[i + 1]));
                             arrlist.RemoveAt(i);
                             arrlist.RemoveAt(i);
                             i = 0;
-                            
-
 
                         }
-
 
 
                         i++;
@@ -90,7 +119,6 @@ namespace ConsoleApp1
                             arrlist.RemoveAt(i);
                             arrlist.RemoveAt(i);
                             i = 0;
-                            
 
                         }
                         else if (arrlist[i].Equals("-"))
@@ -99,16 +127,15 @@ namespace ConsoleApp1
                             arrlist.RemoveAt(i);
                             arrlist.RemoveAt(i);
                             i = 0;
-                            
+
                         }
 
                         i++;
                     }
-                
 
 
                     Console.WriteLine(arrlist[0]);
-                    
+
                     Console.WriteLine("do you want to restart the calculator? yes/no?");
                     restart = Console.ReadLine();
                     if (restart == "yes")
@@ -116,7 +143,7 @@ namespace ConsoleApp1
                         arrlist.Clear();
                         loop = true;
                         Console.Clear();
-                        
+
                     }
                     else
                     {
@@ -125,7 +152,7 @@ namespace ConsoleApp1
                     }
 
                 }
-                
+
                 catch (Exception e)
                 {
                     Console.WriteLine(DateTime.Now);
@@ -134,13 +161,23 @@ namespace ConsoleApp1
                     backTop = false;
 
                 }
-               
-
-                
-                
 
             }
         }
+            //Hittade inget bra att testa i mitt original program så lade till lite extra här som test för att kunna köra ett xunit test.
+    public static class MathOperation
+        {
+
+            public static double Add(double nummerEtt, double nummerTvå)
+            {
+                return (nummerEtt + nummerTvå);
+            }
+
+        }
+    }
+
+}
+       
 
 
         //RAPPORT
@@ -157,6 +194,6 @@ namespace ConsoleApp1
     Detta var ett av alla problem jag har stött på under uppgiften. 
 
         */
-    }
+    
 
-}
+
